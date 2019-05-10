@@ -6,6 +6,8 @@
 
 * Wanted to make the images themselves the radio buttons. Hover and selection effects. When one is selected, lower the brightness and opacity of the other options.
 
+* Would make the images on the results page hoverable. On hover - brightness reduced and a % overlay shown to indicate what percentage of people voted for this photo.
+
 * Testing the components.
 
 * User authentication. Some sort of token auth system that keeps track of who is logged in. Can use this to attach name to each vote rather than requesting the name manually.
