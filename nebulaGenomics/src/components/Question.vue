@@ -6,7 +6,7 @@
         <h3 class="collection-header">Hello, </h3><hr>
         <form @submit.prevent="checkForm">
           <p v-if="errors.length">
-            <b>Please correct the following error(s):</b>
+            <b class="errors">Please correct the following error(s):</b>
             <ul>
               <li v-for="error in errors">{{ error }}</li>
             </ul>
@@ -116,6 +116,9 @@ export default {
 <style media="screen">
   .collection{
     padding: 30px;
+  }
+  .errors{
+    color: red;
   }
   .cardSize{
     width: 18vw;
