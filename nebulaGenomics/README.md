@@ -12,7 +12,7 @@
 
 * Would have used SASS if it was a larger application/ if I had more time.
 
-> If I had done this in React, I think it would have been a lot more impressive/well organised! As I mentioned, I had never used or read about Vue before this. 
+> If I had done this in React, I think it would have been a lot more impressive/well organised! As I mentioned, I had never used or read about Vue before this.
 
 ## Build Setup
 
