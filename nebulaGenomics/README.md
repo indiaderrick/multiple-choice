@@ -4,7 +4,7 @@
 
 * There are a couple of parts that I would have broken down into smaller, reusable components, such as the photograph cards present on both the question and results page. If I had more time, I would have made these child components and passed the data down on props.
 
-* Spent more time on styling - hardly had the time to do any!
+* Wanted to make the images themselves the radio buttons. Hover and selection effects. When one is selected, lower the brightness and opacity of the other options.
 
 * Testing the components.
 
