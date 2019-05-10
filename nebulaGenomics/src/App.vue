@@ -1,7 +1,9 @@
+// eslint-disable-next-line
+/* eslint-disable */
 <template>
   <div id="app">
-    <Navbar />
-    <div class="container">  
+    <Navbar/>
+    <div class="container">
       <router-view/>
     </div>
   </div>
@@ -18,8 +20,10 @@ export default {
 }
 </script>
 
-<style>
-#app {
 
-}
+<style>
+  #app{
+    background-color: #FEFEFE;
+    height: 100vh;
+  }
 </style>
