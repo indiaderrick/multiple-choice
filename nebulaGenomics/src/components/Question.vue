@@ -2,50 +2,49 @@
 <template>
   <div id="question">
     <div class="collection">
-      <h6 class="collection-item"><strong>INSTRUCTIONS: </strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h6>
-
       <div v-for="(question, questionIndex) in questions" v-bind:key="question.id" class="collection-item">
-
-        <p class="collection-header"><h4>Theme: {{question.topic}} </h4></p><hr>
-
-        <form @submit="checkForm">
+        <h3 class="collection-header">Hello, </h3><hr>
+        <form @submit.prevent="checkForm">
           <p v-if="errors.length">
-            <strong>Please correct the following error(s):</strong>
+            <b>Please correct the following error(s):</b>
             <ul>
               <li v-for="error in errors">{{ error }}</li>
             </ul>
           </p>
-          <label for="">Full Name</label>
-          <input type="text" name="" value="" v-model="name">
-          <span>
-            <div class="card cardSize" v-for="(answer, index) in question.answers">
-              <div class="card-content">
-                <img class=" responsive-img small" v-bind:src="answer.imageUrl" alt="">
-              </div>
-              <div class="card-action">
-                {{answer.quantity}}
-                <input
-                :id="'radio-' + answer.text"
-                :value='[index, questionIndex]'
-                class="radio-custom"
-                v-model="picked"
-                type="radio"
-                >
-                <label :for=" 'radio-'+ answer.text" class="radio-custom-label"><br>{{ answer.text }}</label>
-              </div>
+          <label for="name">What's your name?</label>
+          <input type="text" name="name" value="" v-model="name">
+          <div>
+            <label>Which is your favourite photo?</label>
+          </div>
+
+          <div class="card cardSize" v-for="(answer, index) in question.answers">
+            <img id="photo" class="responsive-img small" v-bind:src="answer.imageUrl" alt="">
+            <div class="card-content">
             </div>
-          </span>
-          <input class="btn-large right"  type="submit" value="SUBMIT">
+            <div class="card-action">
+              <input
+              :id="'radio-' + answer.text"
+              :value='[index, questionIndex]'
+              class="radio-custom"
+              v-model="picked"
+              type="radio"
+              >
+              <label :for=" 'radio-'+ answer.text" class="radio-custom-label"><br>{{ answer.text }}</label>
+            </div>
+          </div>
+          <div class="collection-item">
+            <input class="btn black right"  type="submit" value="VOTE >">
+          </div>
         </form>
+
       </div>
     </div>
-    </div>
-  </template>
+  </div>
+</template>
 
 <script>
 import db from './firebaseInit'
-import SelectYourOption from './SelectYourOption.vue'
-
+// import PhotoComponent from './PhotoComponent.vue'
 
 export default {
   name: 'question',
@@ -58,19 +57,17 @@ export default {
     }
   },
   components: {
-    SelectYourOption
+    // PhotoComponent
   },
   created () {
     db.collection('questions').get().then(results => {
       results.forEach((doc) => {
-        console.log(doc.data())
         const data = {
           'id': doc.id,
           'question': doc.data().questionOne,
           'answers': doc.data().answers,
           'topic': doc.data().topic
         }
-        console.log(data)
         this.questions.push(data)
       })
     })
@@ -81,6 +78,7 @@ export default {
       const questionIndex = this.picked[1]
       const answer = this.questions[questionIndex].answers[answerIndex]
       answer.quantity += 1
+      answer.chosenBy.push(this.name)
       db.collection('questions').where('topic', '==', this.questions[questionIndex].topic)
       .get()
       .then(results => {
@@ -91,7 +89,7 @@ export default {
             topic: this.questions[questionIndex].topic,
           })
           .then(() => {
-            this.$router.push({name: 'results'})
+            this.$router.push({name: 'Results', params: {name: this.name, vote: answer.text}})
           })
         })
       })
@@ -102,12 +100,12 @@ export default {
         this.submitResponse(e)
         return true;
       }
-      this.errors = [];
-      if (this.picked === null) {
-        this.errors.push('Select an image.')
-      }
+      this.errors = []
       if (!this.name) {
-        this.errors.push('Name required.')
+        this.errors.push('Name not provided.')
+      }
+      if (this.picked === null) {
+        this.errors.push('No photo selected.')
       }
       e.preventDefault();
     }
@@ -116,11 +114,13 @@ export default {
 </script>
 
 <style media="screen">
+  .collection{
+    padding: 30px;
+  }
   .cardSize{
-    width: 20vw;
+    width: 18vw;
     vertical-align: top;
     display: inline-block;
     margin: 10px;
   }
-
 </style>

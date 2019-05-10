@@ -23,7 +23,7 @@ export default {
 
 <style>
   #app{
-    background-color: #FEFEFE;
-    height: 100vh;
+    background-color: #FFFFFF;
+    font-family: 'Ramaraja'
   }
 </style>

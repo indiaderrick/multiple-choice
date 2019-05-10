@@ -1,14 +1,27 @@
 <template>
   <div id="results">
-    <h3>Results</h3>
-    <div class="action-btn">
-      <router-link to="/" class="waves-effect waves-light btn-large">
-      <i class="material-icons right"></i>Back to Photos</router-link>
+    <div class="collection resultsContainer">
+      <div class="collection-header">
+        <h3>Thanks for your vote, {{this.name}}. Here are the results:</h3>
+        <router-link to="/" class="waves-effect btn black">
+          <i class="material-icons"></i>Back to Photos</router-link>
+        </div>
+      <div class="photoRow collection-item">
+        <div v-for="answer in questions[0].answers" v-bind:key="answer.text" class="card card-results">
+          <img id="photo" class="responsive-img small" v-bind:src="answer.imageUrl" alt="photo">
+          <div class="card-action">
+            <b v-if="!answer.quantity"> No votes yet :(</b>
+            <b v-else-if="answer.text === yourVote">You and {{answer.quantity - 1}} other(s) ---- <i> SCROLL ↯ </i></b>
+            <b v-else="answer.quantity"> {{answer.quantity}} Vote(s) ---- <i> SCROLL ↯ </i></b>
+          </div>
+          <div class="card-action">
+            <span v-for="(name, index) in answer.chosenBy">
+              <p class="chip" v-if="index">{{name}}</p>
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
-    <li v-for="answer in questions[0].answers" v-bind:key="question.id" class="collection-item">
-      
-      <p><span class="chip">{{answer.text}}: {{answer.quantity}}</span> </p>
-    </li>
   </div>
 </template>
 
@@ -19,25 +32,39 @@ export default {
   name: 'results',
   data () {
     return {
+      name: this.$route.params.name,
+      yourVote: this.$route.params.vote,
       questions: []
+
     }
   },
   created () {
     db.collection('questions').get().then(results => {
       results.forEach((doc) => {
-        console.log(doc.data());
         const data = {
           'id': doc.id,
           'question': doc.data().questionOne,
-          'answer1': doc.data().answer1,
-          'answer2': doc.data().answer2,
-          'answer3': doc.data().answer3
+          'answers': doc.data().answers,
+          'topic': doc.data().topic,
         }
-        console.log(data);
         this.questions.push(data)
       })
     })
   }
 }
-
 </script>
+
+<style media="screen">
+.resultsContainer{
+  position: relative;
+  padding: 35px;
+}
+.card-results{
+  width: 20vw;
+  height: 64vh;
+  overflow: scroll;
+  vertical-align: top;
+  display: inline-block;
+  margin: 6px;
+}
+</style>

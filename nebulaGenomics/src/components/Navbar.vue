@@ -4,9 +4,8 @@
   <div class="nav-wrapper black">
     <div class="container">
       <router-link to="/"
-        class="brand-logo">National Geographic Photography Competition</router-link>
+        class="brand-logo">Multiple Choice Game</router-link>
     </div>
   </div>
 </nav>
-
 </template>
