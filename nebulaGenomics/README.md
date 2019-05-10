@@ -1,8 +1,10 @@
 # nebula-genomics
 
-> Things I wanted to do/add but didn't have enough time:
+> Things I would do/add if I had more time:
 
-* There are a couple of parts that I might have broken down into smaller, reusable components, such as the photograph cards present on both the question and results page. If I had more time, I would have made these child components and passed the data down on props.
+* There are a couple of parts that I would have broken down into smaller, reusable components, such as the photograph cards present on both the question and results page. If I had more time, I would have made these child components and passed the data down on props.
+
+* Spent more time on styling - hardly had the time to do any!
 
 * Testing the components.
 
@@ -12,7 +14,7 @@
 
 * Would have used SASS if it was a larger application/ if I had more time.
 
-> If I had done this in React, I think it would have been a lot more impressive/well organised! As I mentioned, I had never used or read about Vue before this.
+> If I had done this in React, I think it would have been a lot more impressive/well organised!
 
 ## Build Setup
 
