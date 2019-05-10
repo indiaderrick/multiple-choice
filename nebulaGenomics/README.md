@@ -10,6 +10,8 @@
 
 * User authentication. Some sort of token auth system that keeps track of who is logged in. Can use this to attach name to each vote rather than requesting the name manually.
 
+* When entering name -- check database -- can't enter same name twice -- throws error.
+
 * Ability to add new questions. I tried to design this in a way that this would be easy to implement in the future.
 
 * Would have used SASS if it was a larger application/ if I had more time.
